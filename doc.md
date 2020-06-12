@@ -39,7 +39,7 @@ A,Bボタンの押し方によって、以下の通り自分の手によって�
 自分の手は、無線で数値を送ることで他の人に知らせています。
 
 ## 開発環境について
-[micro:bitの開発環境](https://makecode.microbit.org/)にアクセスし、「読み込む」をクリックし「URLから読み込む」をクリックして、"https://github.com/kwaka1208/microbit-janken/”を入力してください。
+[micro:bitの開発環境](https://makecode.microbit.org/)にアクセスし、「読み込む」をクリックし「URLから読み込む」をクリックして、"[https://github.com/kwaka1208/microbit-janken/](https://github.com/kwaka1208/microbit-janken/)”を入力してください。
 
 ## 既知の不具合について
 勝ち負け判定後、負けた側がいったんドクロ表示になった後、引き分け表示（△）になることがあります、原因については現在調べています。
