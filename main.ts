@@ -1,45 +1,41 @@
 function 準備をする () {
     自分の手 = 0
-    他の人の手 = 0
-    出された手のリスト = [0, 0, 0, 0]
+    グー = 0
+    チョキ = 0
+    パー = 0
     basic.showIcon(IconNames.Yes)
 }
 radio.onReceivedNumberDeprecated(function (receivedNumber) {
     if (receivedNumber == 0) {
         準備をする()
     } else {
-        出された手のリスト[receivedNumber] = 1
+        出した手を覚える(receivedNumber)
         勝ち負け判定()
     }
 })
 function 勝ち負け判定 () {
-    手の種類 = 出された手のリスト[1] + (出された手のリスト[2] + 出された手のリスト[3])
     if (手の種類 != 0 && 自分の手 != 0) {
         basic.pause(2000)
-        出された手のリスト[自分の手] = 1
-        手の種類 = 出された手のリスト[1] + (出された手のリスト[2] + 出された手のリスト[3])
+        出した手を覚える(自分の手)
         if (手の種類 != 2) {
             basic.showIcon(IconNames.Triangle)
         } else {
-            カウンター = 1
-            for (let index = 0; index < 3; index++) {
-                if (出された手のリスト[カウンター] == 1) {
-                    if (カウンター != 自分の手) {
-                        他の人の手 = カウンター
-                    }
-                }
-                カウンター += 1
+            自分の勝ち = 0
+            if (自分の手 == 1 && チョキ == 1) {
+                自分の勝ち = 1
             }
-            if (他の人の手 == 1) {
-                他の人の手 = 4
+            if (自分の手 == 2 && パー == 1) {
+                自分の勝ち = 1
             }
-            if (自分の手 + 1 == 他の人の手) {
+            if (自分の手 == 3 && グー == 1) {
+                自分の勝ち = 1
+            }
+            if (自分の勝ち == 1) {
                 basic.showIcon(IconNames.Heart)
             } else {
                 basic.showIcon(IconNames.Skull)
             }
         }
-        出された手のリスト = [0, 0, 0, 0]
     }
 }
 input.onButtonPressed(Button.A, function () {
@@ -51,8 +47,8 @@ input.onButtonPressed(Button.A, function () {
     }
 })
 input.onGesture(Gesture.Shake, function () {
-    準備をする()
     radio.sendNumber(0)
+    準備をする()
 })
 input.onButtonPressed(Button.AB, function () {
     if (自分の手 == 0) {
@@ -70,10 +66,23 @@ input.onButtonPressed(Button.B, function () {
         勝ち負け判定()
     }
 })
-let カウンター = 0
+function 出した手を覚える (数値: number) {
+    if (数値 == 1) {
+        グー = 1
+    }
+    if (数値 == 2) {
+        チョキ = 1
+    }
+    if (数値 == 3) {
+        パー = 1
+    }
+    手の種類 = グー + (チョキ + パー)
+}
+let 自分の勝ち = 0
 let 手の種類 = 0
-let 出された手のリスト: number[] = []
-let 他の人の手 = 0
+let パー = 0
+let チョキ = 0
+let グー = 0
 let 自分の手 = 0
 radio.setGroup(1)
 準備をする()
